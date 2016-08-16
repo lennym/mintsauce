@@ -23,11 +23,11 @@ module.exports = lambda;
 
 ## Middleware
 
-Middleware functions take three arguments.
+Middleware functions take three arguments - `call`, `response`, `next`.
 
 ### `call`
 
-Contains metadata based on the parameters the lambda was called with.
+Contains metadata based on the parameters with which the lambda was called.
 
 #### Properties
 
@@ -36,6 +36,8 @@ Contains metadata based on the parameters the lambda was called with.
 * `arn` - The ARN of the invoked function
 * `region` The AWS region of the lambda
 * `account` - The account id of the lambda function
+
+Additionally the original `event` and `context` are available on properties with the same names.
 
 ### `response`
 
