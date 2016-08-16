@@ -3,8 +3,13 @@
   "version": "0.0.0",
   "description": "Makes lamb(da) more delicious",
   "main": "index.js",
+  "engines": {
+    "node": ">=4"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:lint": "semistandard ./lib",
+    "test:unit": "mocha ./test",
+    "test": "npm run test:lint && npm run test:unit"
   },
   "repository": {
     "type": "git",
@@ -15,5 +20,12 @@
   "bugs": {
     "url": "https://github.com/lennym/mintsauce/issues"
   },
-  "homepage": "https://github.com/lennym/mintsauce#readme"
+  "homepage": "https://github.com/lennym/mintsauce#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2",
+    "semistandard": "^8.0.0",
+    "sinon": "^1.17.5",
+    "sinon-chai": "^2.8.0"
+  }
 }
