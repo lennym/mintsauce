@@ -97,6 +97,18 @@ describe('mintsauce', () => {
       });
     });
 
+    it('catches errors thrown directly in middlewares', (done) => {
+      const err = new Error('test error');
+      const sauce = Sauce();
+      sauce.use(() => {
+        throw err;
+      });
+      sauce.handle(event, context, (e) => {
+        expect(e).to.equal(err);
+        done();
+      });
+    });
+
     describe('nested stacks', () => {
       it('calls into a nested middleware stack', (done) => {
         const sauce = Sauce();
