@@ -36,7 +36,7 @@ describe('mintsauce', () => {
   });
 
   describe('middleware', () => {
-    it('can be invoked by claling reutned function directly', (done) => {
+    it('can be invoked by calling reutned function directly', (done) => {
       const sauce = Sauce();
       const middleware = sinon.stub().yieldsAsync();
       sauce.use(middleware);
@@ -52,6 +52,19 @@ describe('mintsauce', () => {
       const middleware2 = sinon.stub().yieldsAsync();
       sauce.use(middleware1);
       sauce.use(middleware2);
+      sauce.handle(event, context, () => {
+        expect(middleware1).to.have.been.calledOnce;
+        expect(middleware2).to.have.been.calledOnce;
+        expect(middleware1).to.have.been.calledBefore(middleware2);
+        done();
+      });
+    });
+
+    it('supports middleware passed as arrays', (done) => {
+      const sauce = Sauce();
+      const middleware1 = sinon.stub().yieldsAsync();
+      const middleware2 = sinon.stub().yieldsAsync();
+      sauce.use([ middleware1, middleware2 ]);
       sauce.handle(event, context, () => {
         expect(middleware1).to.have.been.calledOnce;
         expect(middleware2).to.have.been.calledOnce;
