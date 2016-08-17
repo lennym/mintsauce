@@ -28,5 +28,7 @@
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "aws-sdk": "^2.5.1"
+  }
 }
