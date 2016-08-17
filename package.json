@@ -1,6 +1,6 @@
 {
   "name": "mintsauce",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Makes lamb(da) more delicious",
   "main": "index.js",
   "engines": {
