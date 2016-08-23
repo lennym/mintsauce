@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/lennym/mintsauce#readme",
   "devDependencies": {
+    "bluebird": "^3.4.1",
     "chai": "^3.5.0",
     "mocha": "^3.0.2",
     "semistandard": "^8.0.0",

@@ -6,6 +6,8 @@ chai.use(require('sinon-chai'));
 const expect = chai.expect;
 const sinon = require('sinon');
 
+const Promise = require('bluebird');
+
 describe('mintsauce', () => {
   let event;
   let context;
@@ -115,6 +117,31 @@ describe('mintsauce', () => {
       const sauce = Sauce();
       sauce.use(() => {
         throw err;
+      });
+      sauce.handle(event, context, (e) => {
+        expect(e).to.equal(err);
+        done();
+      });
+    });
+
+    it('can handle middleware that returns a promise', (done) => {
+      const sauce = Sauce();
+      sauce.use((call, response) => {
+        call.foo = 'bar';
+        return Promise.resolve();
+      });
+      sauce.use((call) => {
+        expect(call.foo).to.equal('bar');
+        done();
+      });
+      sauce.handle(event, context, () => {});
+    });
+
+    it('can handle errors in middleware that returns a promise', (done) => {
+      const sauce = Sauce();
+      const err = new Error('test error');
+      sauce.use((call, response) => {
+        return Promise.reject(err);
       });
       sauce.handle(event, context, (e) => {
         expect(e).to.equal(err);
