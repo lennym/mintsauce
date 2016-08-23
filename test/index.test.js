@@ -149,6 +149,19 @@ describe('mintsauce', () => {
       });
     });
 
+    it('binds error handling middleware with `catch` method', (done) => {
+      const sauce = Sauce();
+      const err = new Error('test error');
+      sauce.use((call, response) => {
+        return Promise.reject(err);
+      });
+      sauce.catch((e) => {
+        expect(e).to.equal(err);
+        done();
+      });
+      sauce.handle(event, context, (e) => {});
+    });
+
     describe('nested stacks', () => {
       it('calls into a nested middleware stack', (done) => {
         const sauce = Sauce();
