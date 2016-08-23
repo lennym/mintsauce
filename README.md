@@ -74,3 +74,49 @@ lambda.use((err, call, response, next) => {
 
 module.exports = lambda;
 ```
+
+Alternatively, a function with any number of arguments can be passed to the `catch` method of a lambda or middleware stack.
+
+```javascript
+const sauce = require('mintsauce');
+const lambda = sauce();
+
+lambda.use((call, response, next) => {
+  next(new Error('example error'));
+});
+lambda.catch((err) => {
+  // error thrown in an earlier middleware is caught here
+  response.error(err);
+});
+
+module.exports = lambda;
+```
+
+## Promises
+
+If a middleware returns an object that implements a Promise-like interface then this will be used to handle progression to the next middleware layer. These can either be native Promises, or a third-party library.
+
+### Example:
+
+```javascript
+const sauce = require('mintsauce');
+const lambda = sauce();
+const BluebirdPromise = require('bluebird');
+
+lambda.use((call, response) => {
+  return new Promise((resolve, reject) => {
+    // ..
+    resolve();
+  });
+});
+lambda.use((call, response) => {
+  return BluebirdPromise.resolve()
+    .then(() => {
+      // your code here
+    });
+});
+
+module.exports = lambda;
+```
+
+Note that the resolved value of a promise is discarded, and will not be used for anything.
