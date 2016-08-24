@@ -2,7 +2,7 @@
 
 Makes lamb(da) more delicious.
 
-Express inspired middleware chains for lamdba functions.
+Express inspired middleware chains for AWS Lamdba functions.
 
 ## Usage:
 
